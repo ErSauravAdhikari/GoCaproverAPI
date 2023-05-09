@@ -2,6 +2,7 @@ package crapi
 
 import "time"
 
+// LoginResponse holds the response from the login endpoint. It contains the token information.
 type LoginResponse struct {
 	Status      int    `json:"status"`
 	Description string `json:"description"`
@@ -9,20 +10,25 @@ type LoginResponse struct {
 		Token string `json:"token"`
 	} `json:"data"`
 }
+
+// VolumeInformation holds a single persistant directory info for a given app.
 type VolumeInformation struct {
 	ContainerPath string `json:"containerPath"`
 	VolumeName    string `json:"volumeName"`
 }
 
+// PortInformation holds a single port mapping info for a given app.
 type PortInformation struct {
 	HostPort      int `json:"hostPort"`
 	ContainerPort int `json:"containerPort"`
 }
 
+// AppPushWebHook acts as bucket to store the repository information.
 type AppPushWebHook struct {
 	RepoInfo AppRepoInfo `json:"repoInfo"`
 }
 
+// AppRepoInfo acts as bucket to store the repository details along with auth credentials.
 type AppRepoInfo struct {
 	User     string `json:"user"`
 	Password string `json:"password"`
@@ -31,6 +37,7 @@ type AppRepoInfo struct {
 	Repo     string `json:"repo"`
 }
 
+// EnvVarInformation holds a single environment variable information for a given app.
 type EnvVarInformation struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
@@ -40,6 +47,7 @@ type AppDeployTokenConfig struct {
 	Enabled bool `json:"enabled"`
 }
 
+// AppDefinition holds all the information stored by the caprover for a given app.
 type AppDefinition struct {
 	HasPersistentData                 bool                `json:"hasPersistentData"`
 	Description                       string              `json:"description"`
@@ -75,6 +83,7 @@ type AppDefinition struct {
 	} `json:"appPushWebhook,omitempty"`
 }
 
+// ListAppResponse holds the response for the list all app request.
 type ListAppResponse struct {
 	Status      int    `json:"status"`
 	Description string `json:"description"`
@@ -85,12 +94,15 @@ type ListAppResponse struct {
 	} `json:"data"`
 }
 
+// GenericAppResponse holds the response for the generic requests. These include delete, etc. requests that don't
+// have much data information.
 type GenericAppResponse struct {
 	Status      int    `json:"status"`
 	Description string `json:"description"`
 	Data        any    `json:"data"`
 }
 
+// UpdateAppRequest holds response for update app request
 type UpdateAppRequest struct {
 	AppName                           string               `json:"appName"`
 	InstanceCount                     int                  `json:"instanceCount"`
@@ -110,6 +122,7 @@ type UpdateAppRequest struct {
 	AppDeployTokenConfig              AppDeployTokenConfig `json:"appDeployTokenConfig"`
 }
 
+// CustomAppRepositoryConfig holds custom app repository information.
 type CustomAppRepositoryConfig struct {
 	Repository string
 	Branch     string
@@ -117,6 +130,7 @@ type CustomAppRepositoryConfig struct {
 	Password   string
 }
 
+// SUOLimits is used to enforce resource constraints on given apps.
 type SUOLimits struct {
 	MemoryBytes int64 `json:"MemoryBytes"`
 	NanoCPUs    int64 `json:"NanoCPUs"`
@@ -130,28 +144,34 @@ type SUOTaskTemplate struct {
 	Resources SUOResources `json:"Resources"`
 }
 
+// ServiceUpdateOverride is a bucket that holds information used to enforce resource constraints on given apps.
 type ServiceUpdateOverride struct {
 	TaskTemplate SUOTaskTemplate `json:"TaskTemplate"`
 }
 
+// AppBuildLogLogs stores the actual build logs as returned by the api
 type AppBuildLogLogs struct {
 	Lines []string `json:"lines"`
 }
 
+// AppBuildLogData is a data bucket for AppBuildLogLogs
 type AppBuildLogData struct {
 	Logs AppBuildLogLogs `json:"logs"`
 }
 
+// AppBuildLogResponse is a response bucket for AppBuildLogData
 type AppBuildLogResponse struct {
 	Status      int             `json:"status"`
 	Description string          `json:"description"`
 	Data        AppBuildLogData `json:"data"`
 }
 
+// AppLogData stores the actual app logs as returned by the api
 type AppLogData struct {
 	Logs string `json:"logs"`
 }
 
+// AppLogResponse is a response bucket for AppLogData
 type AppLogResponse struct {
 	Status      int        `json:"status"`
 	Description string     `json:"description"`
