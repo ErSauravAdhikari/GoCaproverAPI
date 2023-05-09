@@ -10,6 +10,9 @@ To use GoCaproverAPI in your Go project, you can use the following command to ad
 go get github.com/ErSauravAdhikari/GoCaproverAPI
 ```
 
+## Documentation
+https://pkg.go.dev/github.com/ErSauravAdhikari/GoCaproverAPI/crapi
+
 ## Usage
 
 Here's a simple example that demonstrates how to use GoCaproverAPI:
