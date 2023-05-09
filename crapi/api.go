@@ -17,6 +17,12 @@ type Caprover struct {
 	Token    string
 }
 
+// NewCaproverInstance (endpoint string, password string) (Caprover, error): This
+// method is a constructor function that creates a new instance of the Caprover
+// struct. It takes an endpoint and password as parameters and initializes the
+// Caprover struct with the provided values. It also calls the Login method
+// internally to authenticate with the Caprover instance using the provided
+// credentials.
 func NewCaproverInstance(endpoint string, password string) (Caprover, error) {
 	cp := Caprover{
 		Endpoint: endpoint,
@@ -46,6 +52,10 @@ func (c *Caprover) addHeaders(req *http.Request) {
 	}
 }
 
+// Login () error: This method authenticates the client with the Caprover
+// instance. It sends a POST request to the Caprover login endpoint with the
+// provided password. If the login is successful, it retrieves and stores the
+// authentication token for subsequent requests.
 func (c *Caprover) Login() error {
 	fmt.Println("Attempting Login to Caprover Instance")
 
@@ -82,6 +92,10 @@ func (c *Caprover) Login() error {
 	return nil
 }
 
+// GetAppDetails () (ListAppResponse, error): This method retrieves the details
+// of all the applications deployed on the Caprover instance. It sends a GET
+// request to the Caprover app list endpoint and returns the list of applications
+// along with their details.
 func (c *Caprover) GetAppDetails() (ListAppResponse, error) {
 	fmt.Println("Getting App Details")
 
@@ -111,6 +125,11 @@ func (c *Caprover) GetAppDetails() (ListAppResponse, error) {
 	return rsp, nil
 }
 
+// GetAppDetailFor (appName string) (AppDefinition, error): This method retrieves the details of
+// a specific application by its name. It calls the GetAppDetails method
+// internally to get the list of all applications and then searches for the
+// application with the matching name. If found, it returns the application
+// details; otherwise, it returns an error.
 func (c *Caprover) GetAppDetailFor(appName string) (AppDefinition, error) {
 	allDetails, _ := c.GetAppDetails()
 	for _, v := range allDetails.Data.AppDefinitions {
@@ -121,6 +140,12 @@ func (c *Caprover) GetAppDetailFor(appName string) (AppDefinition, error) {
 	return AppDefinition{}, errors.New("not found")
 }
 
+// GetDefaultUpdateRequest (appName string) (UpdateAppRequest, error): This
+// method retrieves the default update request for a specific application. It
+// calls the GetAppDetails method internally to get the list of all applications
+// and then searches for the application with the matching name. If found, it
+// returns an UpdateAppRequest containing the default values for updating the
+// application; otherwise, it returns an error.
 func (c *Caprover) GetDefaultUpdateRequest(appName string) (UpdateAppRequest, error) {
 	allDetails, _ := c.GetAppDetails()
 
@@ -162,6 +187,11 @@ func (c *Caprover) GetDefaultUpdateRequest(appName string) (UpdateAppRequest, er
 	return appRequest, nil
 }
 
+// CreateApp (appName string, hasPersistentData bool) error: This method creates
+// a new application on the Caprover instance. It sends a POST request to the
+// Caprover app register endpoint with the provided appName and hasPersistentData
+// parameters. If the creation is successful, it returns nil; otherwise, it
+// returns an error.
 func (c *Caprover) CreateApp(appName string, hasPersistentData bool) error {
 	fmt.Println("Attempting to create a new app")
 
@@ -199,6 +229,11 @@ func (c *Caprover) CreateApp(appName string, hasPersistentData bool) error {
 	return errors.New(rsp.Description)
 }
 
+// updateAppDetails (data UpdateAppRequest) error: This method updates the
+// details of an application on the Caprover instance. It sends a POST request to
+// the Caprover app update endpoint with the provided UpdateAppRequest payload.
+// If the update is successful, it returns nil; otherwise, it returns an error.
+// FOR INTERNAL USE ONLY
 func (c *Caprover) updateAppDetails(data UpdateAppRequest) error {
 	fmt.Println("Attempting to Update App Details")
 
@@ -232,6 +267,10 @@ func (c *Caprover) updateAppDetails(data UpdateAppRequest) error {
 	return errors.New(rsp.Description)
 }
 
+// ForceBuild (token string) error: This method triggers a forced build for an
+// application on the Caprover instance. It sends a POST request to the Caprover
+// app trigger build endpoint with the provided token parameter. If the build is
+// successful, it returns nil; otherwise, it returns an error.
 func (c *Caprover) ForceBuild(token string) error {
 	fmt.Println("Attempting to Force Build")
 
@@ -262,6 +301,10 @@ func (c *Caprover) ForceBuild(token string) error {
 
 }
 
+// EnableBaseDomainSSL (appName string) error: This method enables SSL on the
+// base domain for an application. It sends a POST request to the Caprover enable
+// base domain SSL endpoint with the provided appName parameter. If the SSL
+// enablement is successful, it returns nil; otherwise, it returns an error.
 func (c *Caprover) EnableBaseDomainSSL(appName string) error {
 	fmt.Println("Attempting to Enable SSL on Base Domain")
 
@@ -296,6 +339,10 @@ func (c *Caprover) EnableBaseDomainSSL(appName string) error {
 	return errors.New(rsp.Description)
 }
 
+// AddCustomDomain (appName string, domain string) error: This method adds a
+// custom domain to an application. It sends a POST request to the Caprover add
+// custom domain endpoint with the provided appName and domain parameters. If the
+// domain addition is successful, it returns nil; otherwise, it returns an error.
 func (c *Caprover) AddCustomDomain(appName string, domain string) error {
 	fmt.Println("Attempting to add a new domain")
 
@@ -332,6 +379,11 @@ func (c *Caprover) AddCustomDomain(appName string, domain string) error {
 	return errors.New(rsp.Description)
 }
 
+// EnableCustomDomainSSL (appName string, domain string) error: This method
+// enables SSL on a custom domain for an application. It sends a POST request to
+// the Caprover enable custom domain SSL endpoint with the provided appName and
+// domain parameters. If the SSL enablement is successful, it returns nil;
+// otherwise, it returns an error.
 func (c *Caprover) EnableCustomDomainSSL(appName string, domain string) error {
 	fmt.Println("Attempting to Enable SSL on Custom Domain")
 
@@ -368,6 +420,7 @@ func (c *Caprover) EnableCustomDomainSSL(appName string, domain string) error {
 	return errors.New(rsp.Description)
 }
 
+// RestartApp restarts app with given appName
 func (c *Caprover) RestartApp(appName string) error {
 	err := c.updateAppDetails(UpdateAppRequest{
 		AppName: appName,
@@ -560,6 +613,10 @@ func (c *Caprover) GetAppLogs(appName string) (string, error) {
 	return logLines, nil
 }
 
+// RemoveApp (appName string) error`: This method deletes an application from the
+// Caprover instance. It deletes a given Caprover app based on the provided
+// `appName` parameter. If the deletion is successful, it returns nil; otherwise,
+// it returns an error.
 func (c *Caprover) RemoveApp(appName string) error {
 	fmt.Println("Attempting to Remove an APP")
 
