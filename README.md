@@ -73,15 +73,8 @@ The following methods are available in the Caprover struct:
 
 11. `EnableCustomDomainSSL(appName string, domain string) error`: This method enables SSL on a custom domain for an application. It sends a POST request to the Caprover enable custom domain SSL endpoint with the provided appName and domain parameters. If the SSL enablement is successful, it returns nil; otherwise, it returns an error. 
 
-12. `DeleteApp(appName string) error`: This method deletes an application from the Caprover instance. It sends a DELETE request to the Caprover app delete endpoint with the provided `appName` parameter. If the deletion is successful, it returns nil; otherwise, it returns an error.
+12. `RemoveApp(appName string) error`: This method deletes an application from the Caprover instance. It deletes a given Caprover app based on the provided `appName` parameter. If the deletion is successful, it returns nil; otherwise, it returns an error.
 
-13. `ScaleApp(appName string, instances int) error`: This method scales the number of instances for an application on the Caprover instance. It sends a POST request to the Caprover app scale endpoint with the provided `appName` and `instances` parameters. If the scaling is successful, it returns nil; otherwise, it returns an error.
-
-14. `GetPersistentData(appName string) (map[string]interface{}, error)`: This method retrieves the persistent data associated with an application on the Caprover instance. It sends a GET request to the Caprover app persistent data endpoint with the provided `appName` parameter. If the retrieval is successful, it returns a map of key-value pairs representing the persistent data; otherwise, it returns an error.
-
-15. `SetPersistentData(appName string, data map[string]interface{}) error`: This method sets the persistent data for an application on the Caprover instance. It sends a POST request to the Caprover app persistent data endpoint with the provided `appName` and `data` parameters. If the data setting is successful, it returns nil; otherwise, it returns an error.
-
-16. `DeployApp(appName string, deploymentData DeploymentData) error`: This method deploys an application on the Caprover instance. It sends a POST request to the Caprover app deploy endpoint with the provided `appName` and `deploymentData` parameters. The `deploymentData` contains information such as the image to deploy, port mapping, environment variables, etc. If the deployment is successful, it returns nil; otherwise, it returns an error.
 
 These methods provide a comprehensive set of functionalities to interact with a Caprover instance programmatically. They allow you to perform tasks such as creating and deleting applications, updating application details, scaling instances, managing custom domains, enabling SSL, retrieving and setting persistent data, triggering builds, and deploying applications. By utilizing these methods, you can automate and streamline your interactions with the Caprover platform.
 
