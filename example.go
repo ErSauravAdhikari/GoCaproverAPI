@@ -7,7 +7,7 @@ import (
 	"github.com/ErSauravAdhikari/GoCaproverAPI/crapi"
 )
 
-func main() {
+func example() {
 	// Create a new Caprover instance
 	caprover, err := crapi.NewCaproverInstance("https://your-endpoint.xyz", "your-password")
 	if err != nil {
