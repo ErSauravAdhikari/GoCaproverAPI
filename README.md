@@ -1,6 +1,11 @@
 # GoCaproverAPI
 
-GoCaproverAPI is a pure Go interface for managing deployments in Caprover, a deployment management software. It provides an easy-to-use API for interacting with Caprover and performing various deployment-related operations.
+GoCaproverAPI is a pure Go api for managing deployments in Caprover, a self hosted PAAS software. 
+It provides an easy-to-use API for interacting with Caprover and performing various deployment-related operations.
+
+This also adds additional functionality such as easy to add resource constraints that is not as easy to add using the official caprover webui.
+
+Caprover Docs: https://caprover.com/
 
 ## Installation
 
