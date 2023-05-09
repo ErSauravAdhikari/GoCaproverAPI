@@ -51,26 +51,6 @@ func main() {
 
 The following methods are available in the Caprover struct:
 
-- `NewCaproverInstance(endpoint string, password string) (Caprover, error)`: Creates a new Caprover instance and performs login.
-- `GetAppDetails() (ListAppResponse, error)`: Retrieves details of all the apps.
-- `GetAppDetailFor(appName string) (AppDefinition, error)`: Retrieves details of a specific app.
-- `GetDefaultUpdateRequest(appName string) (UpdateAppRequest, error)`: Retrieves the default update request for an app.
-- `CreateApp(appName string, hasPersistentData bool) error`: Creates a new app.
-- `UpdateContainerHTTPPort(appName string, newPort int) error`: Updates the container HTTP port for an app.
-- `RestartApp(appName string) error`: Restarts an app.
-- `EnableWebsocketSupport(appName string) error`: Enables websocket support for an app.
-- `DisableWebsocketSupport(appName string) error`: Disables websocket support for an app.
-- `EnableForceHTTPS(appName string) error`: Enables force HTTPS for an app.
-- `DisableForceHTTPS(appName string) error`: Disables force HTTPS for an app.
-- `TurnInstanceCountZero(appName string) error`: Sets the instance count of an app to zero.
-- `TurnInstanceCountOne(appName string) error`: Sets the instance count of an app to one.
-- `UpdateGitRepoInfo(appName string, repoInfo AppRepoInfo) error`: Updates the Git repository info for an app.
-- `UpdateResourceConstraint(appName string, memoryInMB int64, cpuInUnits float64) error`: Updates the resource constraints for an app.
-- `GetBuildLogs(appName string) (string, error)`: Retrieves the build logs for an app.
-- `GetAppLogs(appName string) (string, error)`: Retrieves the app logs for an app.
-- `RemoveApp(appName string) error`: Removes an app.
-
-## Detailed Method Details
 1. `NewCaproverInstance(endpoint string, password string) (Caprover, error)`: This method is a constructor function that creates a new instance of the `Caprover` struct. It takes an `endpoint` and `password` as parameters and initializes the `Caprover` struct with the provided values. It also calls the `Login` method internally to authenticate with the Caprover instance using the provided credentials.
 
 2. `Login() error`: This method authenticates the client with the Caprover instance. It sends a POST request to the Caprover login endpoint with the provided password. If the login is successful, it retrieves and stores the authentication token for subsequent requests.
@@ -91,4 +71,16 @@ The following methods are available in the Caprover struct:
 
 10. `AddCustomDomain(appName string, domain string) error`: This method adds a custom domain to an application. It sends a POST request to the Caprover add custom domain endpoint with the provided `appName` and `domain` parameters. If the domain addition is successful, it returns nil; otherwise, it returns an error.
 
-11. `EnableCustomDomainSSL(appName string, domain string) error`: This method enables SSL on a custom domain for an application. It sends a POST request to the Caprover enable custom domain SSL endpoint with the provided
+11. `EnableCustomDomainSSL(appName string, domain string) error`: This method enables SSL on a custom domain for an application. It sends a POST request to the Caprover enable custom domain SSL endpoint with the provided appName and domain parameters. If the SSL enablement is successful, it returns nil; otherwise, it returns an error. 
+
+12. `DeleteApp(appName string) error`: This method deletes an application from the Caprover instance. It sends a DELETE request to the Caprover app delete endpoint with the provided `appName` parameter. If the deletion is successful, it returns nil; otherwise, it returns an error.
+
+13. `ScaleApp(appName string, instances int) error`: This method scales the number of instances for an application on the Caprover instance. It sends a POST request to the Caprover app scale endpoint with the provided `appName` and `instances` parameters. If the scaling is successful, it returns nil; otherwise, it returns an error.
+
+14. `GetPersistentData(appName string) (map[string]interface{}, error)`: This method retrieves the persistent data associated with an application on the Caprover instance. It sends a GET request to the Caprover app persistent data endpoint with the provided `appName` parameter. If the retrieval is successful, it returns a map of key-value pairs representing the persistent data; otherwise, it returns an error.
+
+15. `SetPersistentData(appName string, data map[string]interface{}) error`: This method sets the persistent data for an application on the Caprover instance. It sends a POST request to the Caprover app persistent data endpoint with the provided `appName` and `data` parameters. If the data setting is successful, it returns nil; otherwise, it returns an error.
+
+16. `DeployApp(appName string, deploymentData DeploymentData) error`: This method deploys an application on the Caprover instance. It sends a POST request to the Caprover app deploy endpoint with the provided `appName` and `deploymentData` parameters. The `deploymentData` contains information such as the image to deploy, port mapping, environment variables, etc. If the deployment is successful, it returns nil; otherwise, it returns an error.
+
+These methods provide a comprehensive set of functionalities to interact with a Caprover instance programmatically. They allow you to perform tasks such as creating and deleting applications, updating application details, scaling instances, managing custom domains, enabling SSL, retrieving and setting persistent data, triggering builds, and deploying applications. By utilizing these methods, you can automate and streamline your interactions with the Caprover platform.
