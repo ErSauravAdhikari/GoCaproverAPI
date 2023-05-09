@@ -11,7 +11,7 @@ go get github.com/ErSauravAdhikari/GoCaproverAPI
 ```
 
 ## Documentation
-https://pkg.go.dev/github.com/ErSauravAdhikari/GoCaproverAPI/crapi
+[https://pkg.go.dev/github.com/ErSauravAdhikari/GoCaproverAPI/crapi](https://pkg.go.dev/github.com/ErSauravAdhikari/GoCaproverAPI/crapi#Caprover)
 
 ## Usage
 
