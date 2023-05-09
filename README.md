@@ -1,6 +1,3 @@
-Based on the code snippets you provided, here's a sample `README.md` file for your project:
-
-```markdown
 # GoCaproverAPI
 
 GoCaproverAPI is a pure Go interface for managing deployments in Caprover, a deployment management software. It provides an easy-to-use API for interacting with Caprover and performing various deployment-related operations.
