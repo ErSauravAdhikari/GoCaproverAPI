@@ -11,7 +11,8 @@ func main() {
 	// Create a new Caprover instance
 	caprover, err := crapi.NewCaproverInstance("https://your-endpoint.xyz", "your-password")
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return
 	}
 
 	// Get details of all the apps

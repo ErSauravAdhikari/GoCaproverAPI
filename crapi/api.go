@@ -60,7 +60,15 @@ func (c *Caprover) Login() error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode != 200 {
+		return errors.New("login Error")
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -87,7 +95,11 @@ func (c *Caprover) GetAppDetails() (ListAppResponse, error) {
 	req, _ := http.NewRequest("GET", url, payload)
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return ListAppResponse{}, err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -166,7 +178,11 @@ func (c *Caprover) CreateApp(appName string, hasPersistentData bool) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -195,7 +211,11 @@ func (c *Caprover) updateAppDetails(data UpdateAppRequest) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -221,7 +241,11 @@ func (c *Caprover) ForceBuild(token string) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -252,7 +276,10 @@ func (c *Caprover) EnableBaseDomainSSL(appName string) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -284,7 +311,11 @@ func (c *Caprover) AddCustomDomain(appName string, domain string) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -316,7 +347,11 @@ func (c *Caprover) EnableCustomDomainSSL(appName string, domain string) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -481,7 +516,11 @@ func (c *Caprover) GetBuildLogs(appName string) (string, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -503,7 +542,11 @@ func (c *Caprover) GetAppLogs(appName string) (string, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
@@ -531,7 +574,11 @@ func (c *Caprover) RemoveApp(appName string) error {
 
 	c.addHeaders(req)
 
-	res, _ := http.DefaultClient.Do(req)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
+
 	defer res.Body.Close()
 
 	body, _ := io.ReadAll(res.Body)
